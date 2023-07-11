@@ -1,2 +1,2 @@
-#!/bn/bash
-2-hellofile
+#!/bin/bash
+echo 2-hellofile
