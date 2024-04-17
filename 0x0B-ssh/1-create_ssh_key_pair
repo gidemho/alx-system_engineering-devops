@@ -1,10 +1,26 @@
 #!/usr/bin/env bash
-# generating ssh key pairs
 
-ssh-keygen -t rsa -b 4096
-# creating ssh directory
 
--f ~/.ssh/school
-# entering ssh passphrase
+# name of the private key
 
--p betty
+private_key="school"
+
+
+# number of bits in the key
+
+bits=4096
+
+
+# passphrase to protect the key
+
+passphrase="betty"
+
+
+# generate the key pair
+
+ssh-keygen -t rsa -b "$bits" -N "$passphrase" -f "$private_key"
+
+
+# display success message
+
+echo "RSA key pair generated successfully."
