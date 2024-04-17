@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# generating ssh key pairs
+
+ssh-keygen -t rsa -b 4096
+# creating ssh directory
+
+-f ~/.ssh/school
+# entering ssh passphrase
+
+-p betty
