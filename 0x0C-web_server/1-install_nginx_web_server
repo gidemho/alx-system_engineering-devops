@@ -1,13 +1,29 @@
 #!/usr/bin/env bash
-# commands to install nginx on web server
 
-sudo apt-get update
-sudo apt-get install nginx
-sudo ufw 'Nginx HTTP'
+# Update package list and install nginx
+apt-get update
+apt-get install -y nginx
 
-echo "Hello World!" | sudo tee /var/www/html/index.html
+# Create a default HTML page with "Hello World!"
+echo "Hello World!" > /var/www/html/index.html
 
-# testing nginx configurations
-sudo nginx -t
+# Configure Nginx to listen on port 80 and serve the custom HTML page
+cat > /etc/nginx/sites-available/default <<EOF
+server {
+    listen 80 default_server;
+    listen [::]:80 default_server;
 
-sudo service nginx reload
+    root /var/www/html;
+    index index.html;
+
+    server_name _;
+
+    location / {
+        try_files \$uri \$uri/ =404;
+    }
+}
+EOF
+
+# Restart Nginx
+service nginx restart
+
