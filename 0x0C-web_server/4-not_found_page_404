@@ -16,8 +16,24 @@ echo "Ceci n'est pas une page" | sudo tee /var/www/html/404.html
 
 string_for_replace="listen 80 default_server;\n\terror_page 404 \/404.html;\n\tlocation = \/404.html {\n\troot \/var/www/html;\n\tinternal;\n\t}"
 
-sudo sed -i "s/listen 80 default_server;/$string_for_replacement/" /etc/nginx/sites-enabled/default
+sudo sed -i "s#listen 80 default_server;#$string_for_replacement#" /etc/nginx/sites-enabled/default
 
 # restart nginx after implementing changes
 
 sudo service nginx restart
+
+# verification step
+
+sleep 2 # wait for nginx to restart
+
+response=$(curl -s -o /dev/null -w "%{http_code}" http://localhost/404.htnl)
+
+if ["$response" == "200" ]; then
+
+	echo "Success:  Custom 404 page is set up correctly."
+
+else
+
+	echo "Error: Custom 404 page setup failed."
+
+fi
