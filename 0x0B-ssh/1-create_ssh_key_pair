@@ -1,26 +1,4 @@
 #!/usr/bin/env bash
+# Generating SSH key-pairs according to Task requirements
 
-
-# name of the private key
-
-private_key="school"
-
-
-# number of bits in the key
-
-bits=4096
-
-
-# passphrase to protect the key
-
-passphrase="betty"
-
-
-# generate the key pair
-
-ssh-keygen -t rsa -b "$bits" -N "$passphrase" -f "$private_key"
-
-
-# display success message
-
-echo "RSA key pair generated successfully."
+ssh-keygen -t rsa -b 4096 -P betty -f school
